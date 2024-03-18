@@ -1,0 +1,70 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'admin/add_product.css' %}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Add Product</title>
+</head>
+<header>
+    <div class="container">
+        <div class="logo">
+            <h5>Admin Dashboard</h5>
+
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="{% url 'add_product' %}">Add Product</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<body>
+    <br>
+    <h1 style="text-align: center">Add Product</h1>
+   <a href="{% url 'view_products' %}"> <p style="text-align: center"><u>View added products</u></p></a>
+
+    <form method="post" enctype="multipart/form-data" class="product-form"> 
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+<footer>
+        <script>
+            $(document).ready(function(){
+                {% if messages %}
+                    {% for message in messages %}
+                        var toastMessage = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000" style="position: fixed; top: 20px; right: 20px;">' +
+                            '<div class="toast-header bg-success text-white">' +
+                            '<strong class="mr-auto">Success</strong>' +
+                            '<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">' +
+                            '<span aria-hidden="true">&times;</span>' +
+                            '</button>' +
+                            '</div>' +
+                            '<div class="toast-body" style="background-color: #28a745; color: white; font-weight: bold;">{{ message }}</div>' +
+                            '</div>';
+    
+                        // Append the toast message to the document body
+                        $('body').append(toastMessage);
+    
+                        // Show the toast message
+                        $('.toast').toast('show');
+                    {% endfor %}
+                {% endif %}
+            });
+        </script>
+    </footer>
+    
+</html>
